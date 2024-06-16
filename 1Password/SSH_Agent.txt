@@ -12,7 +12,7 @@ C:\Users\ykym7\.ssh
 配下にダウンロードする
 
 id_xserver_artm.pub
-id_github.pub
+id_github_artm.pub
 id_github_smooth.pub
 
 ###################################
@@ -42,7 +42,7 @@ Host github.com-artm
   HostName github.com
   Port 22
   User yokoyama@artm.jp
-  IdentityFile ~/.ssh/id_github.pub
+  IdentityFile ~/.ssh/id_github_artm.pub
   IdentitiesOnly yes
 
 Host github.com-smooth

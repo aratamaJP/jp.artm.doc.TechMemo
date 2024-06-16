@@ -1,18 +1,26 @@
-プロンプトの表示文字列をフルパスから、フォルダ名表示に変更する
+## .ps1スクリプトの実行を許可する
 
-1) Win + R からcmd起動
+  1) ターミナルを管理者権限で起動する
 
-2) 下記コマンドを実行
+  2) 下記コマンドを実行する
 
-mkdir Documents\WindowsPowerShell
-explorer Documents\WindowsPowerShell
+    Set-ExecutionPolicy RemoteSigned
+
+## プロンプトの表示文字列をフルパスから、フォルダ名表示に変更する
+
+  1) Win + R からcmd起動
+
+  2) 下記コマンドを実行
+
+  mkdir Documents\WindowsPowerShell
+  explorer Documents\WindowsPowerShell
 
 
-3) ファイル「profile.ps1」を作成する
+  3) ファイル「profile.ps1」を作成する
 
-function prompt() {
-  # カレント・フォルダのパスから末尾の要素のみを抽出
-  "[" + (Split-Path (Get-Location) -Leaf) + "] > "
-}
+  function prompt() {
+    # カレント・フォルダのパスから末尾の要素のみを抽出
+    "[" + (Split-Path (Get-Location) -Leaf) + "] > "
+  }
 
-以上
+  以上
