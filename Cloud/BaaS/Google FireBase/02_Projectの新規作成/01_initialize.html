@@ -1,0 +1,53 @@
+本文書内での用語
+
+※Firebaseコンソール ⇒ ブラウザでログインしたFirebase管理画面のこと
+
+
+//---------------------------------------------
+// Initialize
+
+1. GitHubでリポジトリを作成（ignoreでnodeを選択）
+
+
+2. git clone
+
+
+3.プロジェクトフォルダで
+
+  npm init
+
+
+4.firebase-toolsをグローバル環境にインストールする
+
+  npm install -g firebase-tools
+  firebase --version
+
+
+5. Firebase CLIでログインする
+
+  firebase login
+
+  ブラウザが立ち上がるので、Googleアカウントでログインする。
+
+  firebase projects:list
+
+
+//---------------------------------------------
+// create new Project
+
+1. Firebaseにブラウザでログインし、プロジェクトを作成する。
+
+
+//---------------------------------------------
+// create new App
+// プロジェクトの概要ページを開く
+// 「アプリの追加」からアプリを追加する
+
+*
+外部のWebサーバーや、スマホアプリからのアクセスなど
+APIトークンが必要な場合にアプリを作成する。
+
+Hosting => Functions => Store
+
+ならトークンが必要ないため、作成しなくて良い。
+

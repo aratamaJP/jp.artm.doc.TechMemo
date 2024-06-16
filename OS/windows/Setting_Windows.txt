@@ -1,0 +1,8 @@
+php.ini
+
+以下のコメントを外す
+extension_dir = "ext"
+extension=php_mbstring.dll
+extension=php_mysqli.dll
+extension=php_pdo_mysql.dll
+default_charset = "Shift_JIS"

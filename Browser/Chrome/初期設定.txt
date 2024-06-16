@@ -1,0 +1,45 @@
+１．移動ユーザー プロファイルをオンにする
+
+    regeditを管理者として起動する
+    
+    HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
+    から、自分のプロファイルキーを探す
+    
+	例：S-1-5-21-2295788730-575527696-2845626097-1001
+	
+	    ThinkCentre M75q
+        S-1-5-21-2985599194-2325338070-14582239-1001
+
+
+    
+    HKEY_USERS\[プロファイルキー]\SOFTWARE\Policies\Google\Chrome
+    にDWORDの値
+    
+    RoamingProfileSupportEnabled
+    を、値「0x0000001」で追加する
+
+
+２．プロファイルの保存場所をOneDriveに変更
+
+
+    HKEY_USERS\[プロファイルキー]\SOFTWARE\Policies\Google\Chrome
+    にREZ_SZの値
+
+    RoamingProfileLocation
+    を、値「C:\Users\ykym7\OneDrive - 合同会社あらたま\Roaming\Google\Chrome」で追加する
+
+
+３．Chromeの設定を確認する
+    
+    Chromeを起動し、
+    chrome://sync-internals
+    にアクセスする
+
+    [About] ページの [Local state] で、
+    [Local Sync Backend Enabled] がtrueになっていることを確認する
+
+    
+    
+    [Local Backend Path] が前項で指定したパスになっていることを確認する。
+
+   

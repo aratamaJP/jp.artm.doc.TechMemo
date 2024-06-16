@@ -1,0 +1,19 @@
+CDSの多対多リレーションシップの設定箇所に書かれている
+「関連エンティティ名」
+
+
+これの末尾に「set」を不可したものを
+エンティティ名として用いれば
+「List Records」コネクターで
+取得することができる
+
+例：
+関連エンティティ名「new_spend_feerate_new_ad_project」
+List Recordsで使うエンティティ名「new_spend_feerate_new_ad_projectset」
+
+
+検索に使うフィールド名は、エンティティ名の末尾に「id」を
+付加したものを使う。
+例：
+new_spend_feerateid
+new_ad_projectid

@@ -1,0 +1,120 @@
+
+<h2>Authentication</h2>
+<section>
+  <h3>初期設定を行う</h3>
+  <ol>
+    <li>Firebaseコンソールのサイドバーで「Authentication」をクリック</li>
+    <li>[ログイン方法を設定]をクリック</li>
+    <li>使いたいログイン方法を「有効」にして「保存」をクリック</li>
+  </ol>
+</section>
+<section>
+  <h3>「メール／パスワード認証」の場合</h3>
+  <ol>
+    <li>「Users」タグでユーザー情報を追加することができる。</li>
+    <li>[ログイン方法を設定]をクリック</li>
+    <li>使いたいログイン方法を「有効」にして「保存」をクリック</li>
+  </ol>
+</section>
+<section>
+  <h3>「Firebase Hosting」に配置したフロントエンドから認証を使う</h3>
+  <ol>
+    <li>
+      Bodyタグの「末尾」で次の記述をすることで、Firebase SDKを読み込む。
+<pre><code>&lt;script src="/__/firebase/6.2.0/firebase-app.js">&lt;/script>
+&lt;script src="/__/firebase/6.2.0/firebase-auth.js">&lt;/script>
+&lt;script src="/__/firebase/init.js">&lt;/script> *これは不要かも</code></pre>      
+    </li>
+    <li>デプロイを実施する<br>firebase deploy</li>
+    <li>
+      ログイン処理は下記のように実装する
+<pre><code>function btnLogin_OnClick(){
+    firebase.auth().signInWithEmailAndPassword('yokoyama@artm.jp', '01mi27ka')
+    .then( resp => {
+        console.log('ログイン成功！');
+        console.log(resp);
+    })
+    .catch(function(error) {
+        // Handle Errors here.
+        alert(`${error.code} : ${error.message}`)
+    });
+}</code></pre>
+    </li>
+  </ol>
+</section>
+
+
+<section>
+  <h3>functions でのログイン状態チェック</h3>
+  <p>
+    onRequestファンクションでは、自前で認証処理を書く必要があるが、
+    onCallファンクションを使えばFirebaseの認証有無を確認することができる。
+
+    ただしonCallはPOSTメソッドである必要がある。
+  </p>
+  <p>
+    他の方法としては、
+    RESTコールをするときに BearerのID Token付与を行う。
+</p>
+    <section>
+      <h4>Bearerトークン</h4>
+      <p>
+        Bearerとは「持参人」すなわち「トークンを持ってきた存在」を意味する。
+        BearerトークンはBearer（それを持ってきた存在）にアクセス権限を与える特性を持つ。  
+
+        Bearerトークンはその所有のみによって権利付与をおこなうため、Bearerトークンは決して外部で流出させてはならない。
+        なぜなら、拾った切符は利用できてしまうのと同様に、流出したBearerトークンによって第三者がアクセス権を得てしまうからである。        
+
+        by Wiki
+      </p>
+    </section>
+    <section>
+      <h3>Hosting側 (JavaScript)</h3>
+      <p>
+<code><pre>
+import axios from "axios"
+
+firebase.auth().currentUser.getIdToken().then(function(token){
+  axios.get("/api/xxxx", {
+    headers: { 'Authorization': `Bearer ${token}`  }
+  })
+})
+</pre></code>
+      </p>
+    <section>
+
+
+    <h3>Functions側 (TypeScript)</h3>
+<p>
+<code><pre>const admin = require('firebase-admin');
+admin.initializeApp(); 
+
+router.route('/')
+.get((req:Request, res:Response) => 
+{
+  
+  try {
+      if (req.headers.authorization) {
+          // ログイン情報あり
+          const token = req.headers.authorization.split('Bearer ')[1];
+        
+          return admin.auth().verifyIdToken(token)
+          .then((decodedToken:any) => {
+              console.log("success");
+              console.log(decodedToken);
+          }).catch( (error:any) => {
+              console.error(error);
+          });
+      } else {
+        console.log("not logged in");
+      }
+  } catch (error) {
+      console.error(error);
+  }
+}</pre></code>
+  </p>
+</section>
+  4.実際に呼び出すときは、Firebase SDK経由で呼び出すと
+  Authenticationの認証情報も使うことができる。
+</section>
+

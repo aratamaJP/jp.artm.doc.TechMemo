@@ -1,0 +1,32 @@
+■   新しいブランチを作成する
+
+    git checkout master
+    git branch [BRANCH_NAME]
+    git checkout [ BRANCH_NAME ]
+
+
+■  リモートに存在しない、ローカル作業ブランチを削除する（PowerShell)
+
+    git pull --prune
+    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
+    git branch -vv | Select-String -Pattern "gone]" | %{ echo $_.ToString().Trim() }
+
+■  リモートに存在しない、ローカル作業ブランチを削除する（PowerShell)
+
+    git branch --merged ` | Select-String -NotMatch -Pattern "(\*|main|master|staging)" ` | %{ git branch -d $_.ToString().Trim() }
+
+■ リベースの実行
+
+    git checkout [ target-branch ]
+    git pull
+
+    [default]
+    git pull --rebase origin master
+    git pull --rebase origin main
+
+    [flexceed]
+    git pull --rebase origin staging
+
+    git rebase --continue
+
+    git push --force

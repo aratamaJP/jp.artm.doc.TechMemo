@@ -1,0 +1,406 @@
+/**---------------------------------------------
+ * 初回ログイン
+ -----------------------------------------------**/
+puttygen.exe で pemからppk作成
+ec2-user:ec2-userでログイン
+
+
+/**---------------------------------------------
+ * 必要があればrootのパスワード変更
+ *----------------------------------------------**/
+sudo su -
+passwd
+
+
+/**---------------------------------------------
+ * システムアップデート
+ *----------------------------------------------**/
+sudo yum -y update
+
+
+/**---------------------------------------------
+ * ユーザ追加
+ *----------------------------------------------**/
+　useradd [ユーザ名]
+　passwd [ユーザ名]
+
+  ~/.bashrcに下記を追記
+
+  if [ $PS1 ]; then
+    screen -d | screen -r
+  fi
+
+
+/**---------------------------------------------
+ * タイムゾーンを日本へ
+ *----------------------------------------------**/
+sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+sudo vi /etc/sysconfig/clock
+ZONE="Asia/Tokyo"
+UTC= true
+
+
+/**---------------------------------------------
+ * 必要パッケージをインストールする
+ *----------------------------------------------**/
+sudo yum install -y httpd24
+sudo yum install -y mysql55-server
+sudo yum install -y mysql55
+sudo yum install -y php56
+sudo yum install -y php56-mbstring
+sudo yum install -y php56-pdo
+sudo yum install -y php56-mysqlnd
+sudo yum install -y php-pear
+sudo yum install -y git
+
+
+PHPのタイムゾーン設定
+
+vi /etc/php.ini
+date.timezone ="Asia/Tokyo"
+↑行頭の;を外すこと
+
+/**---------------------------------------------
+ * Install Composer
+ *----------------------------------------------**/
+cd /usr/local/bin
+curl -sS https://getcomposer.org/installer | sudo php
+
+
+/**---------------------------------------------
+ * Http autostart
+ *----------------------------------------------**/
+sudo chkconfig httpd on
+
+/**---------------------------------------------
+ * SSH 公開鍵設定
+ -----------------------------------------------**/
+
+sshdの設定
+
+公開鍵の作成
+
+su spamp
+ssh-keygen -t rsa
+
+出力先はデフォルトのまま
+公開鍵のパスワードを指定する
+
+mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+cp ~/.ssh/id_rsa /tmp/id_rsa
+chmod 777 ~/.ssh/id_rsa /tmp/id_rsa
+
+SCPで/tmp/id_rsaのファイルをダウンロード
+
+rm /tmp/id_rsa
+
+
+
+vi /etc/ssh/sshd_config
+
+	PermitRootLogin no
+    PubkeyAuthentication yes
+	PermitEmptyPasswords no
+    PasswordAuthentication no
+    Port 51122
+
+
+ポート22をクローズし、51122と80を開放
+
+firewall-cmd --add-port=51122/tcp --zone=public --permanent
+firewall-cmd --add-port=51122/udp --zone=public --permanent
+firewall-cmd --remove-service=ssh --zone=public --permanent
+firewall-cmd --add-service=http --zone=public --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+
+sshdを再起動
+
+systemctl restart sshd.service
+
+
+ルートのログイン、ユーザのパスワードによる
+ログインが出来ないことを確認する。
+公開鍵使用でログイン出来ることを確認する。
+
+(AWSの場合)
+userdel ec2-user
+
+
+/**---------------------------------------------
+ * SSH 公開鍵設定
+ -----------------------------------------------**/
+
+
+
+2. #yum -y update
+
+
+/**---------------------------------------------
+ * 公開鍵からppkを生成 (アップロード用)
+ -----------------------------------------------**/
+
+	１．PuTTYgenをダウンロード
+	２．PuTTYgenを起動
+	３．Loadで読みこみ、Save PrivateKeyで保存
+
+
+/**---------------------------------------------
+ * 環境設定前準備
+ -----------------------------------------------**/
+// 7.日本語環境にする
+// 　下記のコマンドを実行する
+// 　yum -y groupinstall "Japanese Support"
+// 
+// 　【ランレベル５の場合】
+// 　「/etc/sysconfig/i18n」ファイルの「LANG」を"ja_JP.UTF-8"に変更する。
+// 　　下記のコマンドを実行する
+// 　　source /etc/sysconfig/i18n
+// 
+// 　【ランレベル３の場合】
+// 　　ランレベル３では、コンソールが日本語表示に対応していないため、
+// 　　i18nで日本語設定しても、起動時に上書きされてしまう。そのため
+// 　「~/.Xclients」を以下の内容で作成する。
+// #!/bin/bash
+// export LANG="ja_JP.UTF-8"
+// exec /etc/X11/xinit/Xclients
+// 　「~/.Xclients」に実行権限を付与する。
+// 　　　chmod +x .Xclients
+// 
+
+8./etc/hostsに以下を追加
+
+    127.0.0.1       localhost.localdomain   www.chikuwasoft.com  localhost
+    127.0.0.1       localhost.localdomain   chikuwasoft.com      localhost
+    #192.168.11.129  desktop-pc             desktop-pc
+
+
+// システムアップデート
+yum update -y
+
+
+//log4phpをインストールする
+
+yum install -y php-pear
+pear channel-discover pear.apache.org/log4php
+pear install log4php/Apache_log4php
+
+//mysqldの起動設定
+
+systemctl list-unit-files -t service
+systemctl enable mariadb.service
+systemctl enable httpd.service
+
+
+//mysql設定
+
+vi /etc/my.cnf
+
+	[mysqld]
+	datadir=/var/lib/mysql
+	socket=/var/lib/mysql/mysql.sock
+	user=mysql
+	
+	# Disabling symbolic-links is recommended to prevent assorted security risks
+	symbolic-links=0
+	character-set-server = utf8 #追加する
+
+	[client]
+	default-character-set=utf8
+
+// mariadb起動
+
+	systemctl start mariadb.service
+
+
+// MySQL初期設定
+
+	mysql_secure_installation
+	
+	ROOT PASS:H9pwgLyU
+	
+	// パス設定以外は全部 Enter
+
+
+// mysqlへログイン
+
+	mysql -u root -p
+	
+	// ログイン後、CREATE SQLを流し込む
+
+
+
+// php配置、実行権限付与
+
+	mkdir /usr/share/spamp-serv
+	mkdir /var/www/html/www.spamp.net
+	
+	chown yokoyama /usr/share/spamp-serv
+	chown yokoyama /var/www/html/www.spamp.net
+
+	* 各ファイルをアップロードする *
+
+	chmod +x /usr/share/spamp-serv/get-*.php
+	chmod +x /usr/share/spamp-serv/check-*.php
+
+
+// 
+
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+『Apache』
+ /etc/httpd/conf/httpd.conf 編集
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+	// 変更
+	DirectoryIndex index.html
+	↓
+	DirectoryIndex index.html index.php
+	
+	// 変更
+	ServerName www.example.com:80
+	↓
+	ServerName www.spamp.net:80
+
+	// 追加
+	AddType application/x-httpd-php .php 
+
+
+	// 末尾に以下を追記
+	<VirtualHost *:80>
+		ServerName www.spamp.net
+		DocumentRoot "/var/www/html/www.spamp.net"
+	</VirtualHost>
+	<VirtualHost *:80>
+		ServerName spamp.net
+		Redirect / http://www.spamp.net
+	</VirtualHost>
+
+    # レスポンスヘッダにVersion等を表示しない
+    ServerTokens ProductOnly
+
+    # エラーページにApacheの情報を付けない
+    ServerSignature Off
+
+    # Trace メソッドを無効にする
+    TraceEnable Off
+
+	#Indexes の記述を削除する
+
+
+13.システムを再起動し、以下のURLにアクセスしApache起動確認。
+   http://www.spamp.net/
+
+
+/**---------------------------------------------
+ * Apacheのユーザディレクトリを有効にする（試験環境）
+ -----------------------------------------------**/
+ [root#]
+ vi /etc/httpd/conf.d/userdir.conf
+ #UserDir disable
+ UserDir spamp.net/public_html
+ <Directory "/home/*/spamp.net/public_html">
+	AllowOverride FileInfo AuthConfig Limit Indexes Options
+
+ [spamp$]
+ mkdir ~/spamp.net/public_html
+ chmod o+x /home/spamp
+
+/**---------------------------------------------
+ * FuelPhp
+ -----------------------------------------------**/
+// FuelPHPのインストール (コマンドがインストールされる)
+curl get.fuelphp.com/oil | sh
+
+// 本番環境
+cd /var/www/
+oil create fuelphp
+
+vi  /var/www/fuelphp/fuel/app/config/config.php
+'default_timezone'   => 'Asia/Tokyo',
+
+
+vi /etc/httpd/conf/httpd.conf
+
+DocumentRoot /var/www/fuelphp/public
+
+<Directory "/var/www/fuelphp/public">
+    AllowOverride All
+</Directory>
+
+
+// 試験環境
+cd
+mkdir Sites
+cd Sites
+oil create fuelphp
+ln -s ~/Sites/fuelphp/public ~/spamp.net/public_html
+
+vi  ~/Sites/fuelphp/fuel/app/config/config.php
+'default_timezone'   => 'Asia/Tokyo',
+
+/**---------------------------------------------
+ * ログ監視設定
+ -----------------------------------------------**/
+ログ監視ツールとして logwatch をインストールすると、
+１日一回ログの内容を整形して root にメールを送ってくれる。安全な運用にはログ監視は重要
+logwatch のインストールは下記コマンドを実行。
+
+    # yum –y install logwatch
+
+下記コマンドを実行して正しく動作しているか確認。
+
+    # /usr/sbin/logwatch --print
+
+/**---------------------------------------------
+ * ファイル改ざん検知ツール設定
+ -----------------------------------------------**/
+ファイル改ざん検知ツール設定
+
+Linux のファイル改ざん検知ツールとしては Tripwire が有名だが、現在は商用プロダクトとなったため、ここでは AIDE というオープンソースのファイル改ざんツールを導入。
+
+AIDE のインストール。
+
+    # yum –y install aide
+
+AIDE の初期データベースの作成。
+
+    # aide -i
+
+DBができていることを確認。
+
+    # ll -h /var/lib/aide/
+    合計 1.8M
+    -rw-------. 1 root root 1.8M 3月 18 19:35 2012 aide.db.new.gz
+
+DB の名前変更。
+
+    # cd /var/lib/aide
+    # cp aide.db.new.gz aide.db.gz
+
+AIDE のチェック実行。
+
+    # aide -C
+
+デフォルトだと、AIDE はかなり広範囲にチェックを行うので、結果が煩わしい場合は aide.conf の設定を見直す。
+
+AIDE はこのままではスケジュールで実行されないため、以下のサイトのスクリプトを利用してスケジュール実行できるようにする。
+
+    AIDE(Advanced Intrusion Detection Environment) - Get crazy
+
+上記設定が完了すると、スケジュール実行された結果は以下のログに出力されるようになる。
+
+    /var/log/aide/aide.log – AIDE ログ
+    /var/log/aide/error.log – エラーログ
+
+
+
+/**-------------------------------------
+ * cron設定
+  --------------------------------------*/
+    #crontab -eを実行し、以下の行を追加。
+
+0-59 * * * * /home/spamp/spamp.net/crawl/crawl.php
+

@@ -1,0 +1,62 @@
+###################
+#Debianをインストールする
+###################
+
+root:root
+user:user
+
+
+###################
+# 解像度の変更
+###################
+
+# vi /etc/default/grub
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=hyperv_fb:800x600"
+
+# sudo update-grub
+# reboot
+
+
+###################
+# Debian CUIでの文字化けを直す
+###################
+
+# vi /etc/bash.bashrc
+
+case $TERM in
+    linux) LANG=C ;;
+    *) LANG=ja_JP.UTF-8 ;;
+esac
+
+# source /etc/bash.bashrc
+
+
+###################
+# sudoをインストール
+###################
+
+# apt install sudo
+# gpasswd -a user sudo
+
+* ユーザーを再ログインする
+
+###################
+# Gitをインストール
+###################
+
+sudo apt update
+sudo apt install git
+
+
+###################
+# Node.jsをインストール
+###################
+
+sudo apt install nodejs
+# sudo apt install npm
+curl https://www.npmjs.com/install.sh | sudo sh
+
+nodejs -v
+npm -v
+

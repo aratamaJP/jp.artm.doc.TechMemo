@@ -1,0 +1,9 @@
+クエリの展開（Expand Query）を使うと
+関連エンティティの値を結合して持ってこられる。
+
+これを使うことで、API呼び出し回数の節約ができる。
+
+
+書き方
+関連フィールドID($select=取得項目１,取得項目２,...)
+new_ad_project($select=new_ad_project_code)

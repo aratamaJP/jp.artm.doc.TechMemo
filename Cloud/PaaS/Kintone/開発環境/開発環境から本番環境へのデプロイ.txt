@@ -1,0 +1,5 @@
+テスト環境で作ったアプリを運用環境にデプロイしてみよう 前編
+https://developer.cybozu.io/hc/ja/articles/204851030
+
+テスト環境で作ったアプリを運用環境にデプロイしてみよう 後編
+https://developer.cybozu.io/hc/ja/articles/204930710

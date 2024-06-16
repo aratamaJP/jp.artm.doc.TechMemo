@@ -1,0 +1,1 @@
+https://docs.microsoft.com/ja-jp/power-automate/common-data-model-intro

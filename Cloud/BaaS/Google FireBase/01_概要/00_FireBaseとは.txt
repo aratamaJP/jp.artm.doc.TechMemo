@@ -1,0 +1,151 @@
+FireBase
+
+mBaasである。
+
+mBaaS（mobile backend as a Service）
+
+    スマートフォンアプリのバックエンド開発が不要になる
+    クラウドサービス
+
+
+iOS/AndroidアプリからWebサービスまで幅広く使えます。
+
+Firebase Authentication
+    アカウント機能。
+
+Cloud Firestore
+    リアルタイムで同期ができるデータベース。
+    サイドバーでは「DataBase」表記
+
+Cloud Storage
+    ユーザー作成した画像やファイルをアップロード/ダウンロードできます。
+
+Firebase Hosting
+    静的ホスティングサービス
+    GoogleのCDNの恩恵が得られます。
+
+npm
+    Node package manager
+    
+firebase-tools
+    Firebase CLI
+    firebaseのコマンドを使えるようにする。
+    npmでインストールすると、node.jsでコマンドが使えるようになる。
+
+
+freee-app-template-firebaseが
+Node.jsで作成されている。
+
+また、FireBaseのFunctionsの機能を使うには
+ローカルにNode.jsの環境が必要。
+
+
+
+// 初回のみ
+firebase login
+
+
+cd e:\temp\freee-app-template-firebase
+
+firebase use freeeapptemplate
+
+
+firebase functions:config:set env.mode=production env.region="asia-northeast1" freee.client_id=8e92342f7cc2181b8b58ff44985985c7be66a36c5e9e6e23e60533263e15ce82 freee.client_secret=5356ece270b08c4453ef76f7128807410ba42c24804e0c09e76356e6bcb2ff3b env.serviceaccountpath="config/service-account.json"
+
+npm run deploy
+
+
+-------------------------------------
+Debianの場合
+
+Hyper-VにDebianをインストールする
+
+
+Debianを起動してCUIに変更
+
+# systemctl get-default
+# systemctl set-default -f multi-user.target
+
+
+起動する
+
+-------------------------------------
+Windowsの場合
+
+git clone https://github.com/freee/freee-app-template-firebase.git
+
+cd freee-app-template-firebase
+
+npm install -g firebase-tools
+
+// firebaseにログイン
+firebase login:ci
+
+
+// プロジェクトディレクトリの設定
+firebase init
+
+
+どの機能を利用するか聞かれるので、Firestore, Functions, Hosting, Storageを選択
+
+functions の言語を聞かれるので、typescript を選択
+
+What language would you like to use to write Cloud Functions? 
+TypeScript
+
+tslint を適用するか聞かれるので、yes を選択
+ Do you want to use TSLint to catch probable bugs and enforce style?
+  (Y/n)
+
+File functions/tslint.json already exists. Overwrite?
+YES
+
+firebase プロジェクトを新規作成するか、
+作成したものを選択するか聞かれるので、
+先ほど作成したプロジェクトを選択
+
+npm install を今行うか聞かれるので、no を選択
+
+その他上書きが発生する場合は、全て no を選択
+
+
+２つのファイルが生成される
+
+プロジェクトの構成を含む firebase.json 構成ファイル。
+
+プロジェクト エイリアスが保存される .firebaserc ファイル。
+
+
+■各設定ファイルをコピーする
+
+
+【npm run setup】
+
+npm install
+cd hosting
+npm install
+cd ../functions
+npm install
+
+
+■ローカル環境を実行してみる
+
+npm start
+
+
+■プロジェクトを切り替える
+firebase use freeeapptemplate
+
+
+■設定
+
+firebase functions:config:set env.mode=production env.region="asia-northeast1" freee.client_id=8e92342f7cc2181b8b58ff44985985c7be66a36c5e9e6e23e60533263e15ce82 freee.client_secret=5356ece270b08c4453ef76f7128807410ba42c24804e0c09e76356e6bcb2ff3b env.serviceaccountpath="config/service-account.json"
+
+■デプロイ
+
+
+cd hosting
+npm run build
+cd ../functions
+npm run build
+firebase deploy

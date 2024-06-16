@@ -1,0 +1,141 @@
+#-----------------
+# place Symfony Installer
+#-----------------
+# on Linux
+sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+sudo chmod a+x /usr/local/bin/symfony
+
+# on Windows
+cd [プロジェクトディレクトリ]
+php -r "file_put_contents('symfony', file_get_contents('https://symfony.com/installer'));"
+
+
+#-----------------
+# #Create Symfony Project
+#-----------------
+# on Linux
+cd /var/www/html
+sudo symfony new [Project Name] 3.4
+
+# on Windows
+CMDプロンプトを管理者として起動
+cd [プロジェクトディレクトリ]
+php symfony new [Project Name] 3.4
+
+
+#-----------------
+# tarに固めて ローカルにダウンロードする
+#-----------------
+tar cvf /tmp/[プロジェクト名].tar --exclude vendor [プロジェクト名]
+
+#-----------------
+# SQLiteを使用する場合
+#-----------------
+
+# config変更
+vi app/config/config.yml
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        # pdo_sqliteに変更します
+        driver:   pdo_sqlite
+        # 追加します
+        path:     "%database_path%"
+
+# app/config/parameters.yml 変更
+
+parameters:
+    database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+# app/config/parameters.yml.dst 変更
+# コメントアウトを戻す
+    database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+
+# データベースファイル作成
+touch var/data/data.sqlite
+
+#-----------------
+# orm.ymlを作成する
+#-----------------
+AppBundley/Resources/config/doctrine 配下に作成
+
+#-----------------
+# ormの内容でEntityクラスを作成する
+#-----------------
+php bin/console doctrine:generate:entities [バンドル名]:[テーブル名] --path src
+
+#-----------------
+# ormの内容でテーブルを作成する
+#-----------------
+php bin/console doctrine:schema:update --force
+
+#-----------------
+# テーブルの内容でormを作成する
+#-----------------
+php bin/console doctrine:mapping:convert yaml ./src --from-database --filter="テーブル名"
+
+#-----------------
+# Repositoryクラス作成
+#-----------------
+# カスタマイズが必要なときは、適当にコピーして作成
+
+
+#-----------------
+# crudクラス (マスタデータの編集画面）作成
+#-----------------
+php bin/console doctrine:generate:crud
+
+#対象バンドルを入力
+
+#-----------------
+# Bundle作成
+#-----------------
+php bin/console generate:bundle
+
+# composer.jsonの"autoload"に作成したバンドルを追加
+
+composer.phar dumpautoload
+
+#-----------------
+# データベース初期値をインポートする
+#-----------------
+$ php bin/console doctrine:query:dql 'INSERT INTO '
+
+
+#-----------------
+# Install Project
+#-----------------
+composer.phar install
+
+#-----------------
+# Change Directory Permission
+#-----------------
+sudo chmod -R 777 var/cache
+sudo chmod -R 777 var/logs
+sudo chmod -R 777 var/sessions
+
+
+#-----------
+# Transを使用する
+#-----------
+parameters:
+    locale: ja
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+
+
+#-------------
+# Assetsの展開
+# 各Bundle, Resources/public内をwebフォルダにコピー
+#-------------
+php bin/console assets:install --symlink
+
+
+#-------------
+# キャッシュをクリアする
+#-------------
+php bin/console cache:clear

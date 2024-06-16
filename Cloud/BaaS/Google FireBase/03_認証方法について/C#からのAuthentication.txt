@@ -1,0 +1,17 @@
+nuget パッケージで
+FirebaseAuthentication.net
+が提供されている。
+
+
+https://noitalog.tokyo/wpf-firebase-authentication/
+
+https://www.youtube.com/watch?v=GszuPScsrhw
+
+↑では FireSharpというパッケージを使っている。
+
+
+REST APIでログイン可能である
+https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
+
+↑
+REST APIでログインできるのであれば、C#である必要もない。

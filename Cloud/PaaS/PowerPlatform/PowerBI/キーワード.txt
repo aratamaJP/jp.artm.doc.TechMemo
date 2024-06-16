@@ -1,0 +1,9 @@
+スケジュール更新（定期更新）
+    PowerBI Proが必要？
+
+フォルダーコネクタ
+    Windows上のフォルダや、
+    Sharepoint、
+    Azure Blob Storage
+    などをデータソースとして扱える
+

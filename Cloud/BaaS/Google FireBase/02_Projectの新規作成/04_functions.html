@@ -1,0 +1,205 @@
+//---------------------------------------------
+// Cloud Functions
+
+* TypeScriptをインストールしておく
+
+npm install -g typescript
+
+
+1. Functions の機能を初期設定する
+  firebase init
+
+  [Functions] を選択する
+
+  [Use an existing project]
+  使いたいプロジェクトを選択して Enter
+
+  Functionsに使う言語を選ぶ
+  「TypeScript」を選択する。
+
+  TSLintを使うか聞かれるので Y
+
+  * TSLintとは
+
+
+
+  npmのインストールするか聞かれるのでY
+
+  * ここまでで
+    functionsフォルダが作成される
+
+2.デプロイする場合
+
+  functionsフォルダに移動する。
+  (そこにdeployコマンドが定義されたpackage.jsonが存在する)
+
+  サンプルとして src/index.tsのコメントアウトを解除する
+
+   npm run deploy
+
+
+3.ローカル環境でfunctionsの動確をする場合
+
+  デプロイはとても時間がかかるので、基本的にはローカルで開発する。
+  functionsフォルダに移動し、
+  npm run serve
+
+  ローカル実行中の console.log は
+  実行したターミナル上に表示される。
+
+
+
+<h2>expressを使ってルーティングする</h2>
+<ol>
+    <li>
+        言語にTypeScriptを選択した場合、
+        functions/src フォルダ配下にソースコードが展開され、
+        ファイルの拡張子はtsとなる。
+
+        JavaScriptを選択した場合は、functionsフォルダ直下に展開され、
+        ファイルの拡張子はjsとなる。
+
+        この文章ではTypeScriptを例に記述しているので、
+        適時読み替えること。
+    </li>
+    <li>
+        expressのインストール
+        functionsのフォルダで下記を実行する
+        npm install express -save
+    </li>
+
+    <li>
+        いまのままだと、
+
+        error TS2451: Cannot redeclare block-scoped variable 'express'.
+        が発生してしまう。
+
+        functions/tsconfig.json
+
+        の"target"の値を"es5"に変更する。
+
+        // tsc --init
+    </li
+    >
+    <li>
+        functions/src/フォルダの配下に「router」フォルダーを作成する
+    </li>
+
+    <li>
+        「router」フォルダーの下に[エンドポイント名]のフォルダーを作成する。
+    </li>
+
+    <li>
+        エンドポイント名のフォルダの下にindex.tsのファイルを作成する
+
+        例：
+        /api/user/にアクセスした場合のルーティングファイル
+        router/user/index.ts
+    </li>
+
+    <li>
+        ルーティングファイルに get, post, put, delteメソッドのルーティングを作成
+        user.jsの内容
+<code><pre>import {Request, Response} from "express";
+
+const express = require('express');
+const router = express.Router();
+
+router.route('/')
+.get((req:Request, res:Response) => 
+{
+    res.json({ message : `Hello from Firebase & Express!` });
+})
+.post((req:Request, res:Response) =>
+{
+    res.json({ message : `Thank you for POST to Firebase & Express!` });
+});
+
+router.route('/:id')
+.put((req:Request, res:Response) => 
+{
+    res.json({ message : `YOU HAVE PUT id : ${req.params.id}`});
+})
+.delete((req:Request, res:Response) =>
+{
+    res.json({ message : `YOU DELETE id : ${req.params.id}`});
+});
+
+module.exports = router;</pre></code>
+    </li>
+    <li>
+        functions/src/index.tsで
+        エクスプレスのモジュールを読み込む
+
+        const express = require('express');
+        const app = express();
+    </li>
+    <li>
+        続いて、functions/src/index.tsでルーティングファイルを設定する
+
+        // [/api/user]にアクセスされたときに、[router/user/index.js]を使用する
+        const userRouter = require('./router/user/');
+        app.use('/user', userRouter);
+        
+        // [/api]にアクセスされたときに expressを使用する
+        exports.api = functions.https.onRequest(app);
+    </li>
+</ol>
+
+
+<h3>functionsのロケールを変更する</h3>
+<p>
+functions/src/index.tsでfunctionsのregionメソッドをコールする
+
+exports.api = funcitons.region('asia-northeast1')
+                        .https.onRequest(app);
+</p>
+
+
+<h3>functions/src/index.tsの完成形</h3>
+<p>
+    <code><pre>const functions = require('firebase-functions');
+const express = require('express');
+const app = express();
+
+const userRouter = require('./router/user/');
+app.use('/user', userRouter);
+
+exports.api = functions.region('asia-northeast1')
+                        .https.onRequest(app);</pre></code>
+</p>
+
+<h3>CORSの設定</h3>
+
+他ドメイン、ポートからの呼び出しを許可する。
+
+functions/src/index.tsに次の内容を加える
+
+<code><pre>
+import {Request, Response} from "express";
+    
+/**
+ * CORS 許可設定
+ * @param req 
+ * @param res 
+ * @param next 
+ */
+const allowCrossDomain = function(req:Request, res:Response, next:any) {
+
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5000'); // localhostを許可
+
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header('Access-Control-Max-Age', '3600');
+    res.header('Access-Control-Allow-Credentials', 'true');
+  
+    // intercept OPTIONS method
+    if ('OPTIONS' === req.method) {
+        res.send(200)
+    } else {
+        next()
+    }
+}
+app.use(allowCrossDomain)</pre></code>

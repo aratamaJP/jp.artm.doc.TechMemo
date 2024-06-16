@@ -1,0 +1,32 @@
+https://docs.microsoft.com/ja-jp/powerapps/maker/common-data-service/cds-processes
+
+いつくかの選択肢がある
+
+1.Common Data Source のビジネスルール（業務ルール）
+2.モデル駆動型アプリ フォームに対する業務ルール
+3.PowerAutomate
+
+4.Common Data Service プロセス
+=> クラシック ワークフロー モデルと呼ばれ、Automateへの移行が推奨されている。
+
+
+上記で実装不可能な場合は、C#による
+プラグインや、ワークフロー拡張の実装も可能
+https://docs.microsoft.com/ja-jp/powerapps/developer/common-data-service/apply-business-logic-with-code
+
+
+エンティティの業務ルールの作成
+
+https://docs.microsoft.com/ja-jp/powerapps/maker/common-data-service/data-platform-create-business-rule
+=> 繰り返し処理や、他のエンティティの参照などは行えないっぽい
+
+
+クライアントサイド JavaScript
+https://docs.microsoft.com/ja-jp/powerapps/developer/model-driven-apps/client-scripting
+
+
+
+ダイアログは非推奨
+https://docs.microsoft.com/ja-jp/power-automate/replace-dialogs
+
+

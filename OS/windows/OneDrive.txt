@@ -1,0 +1,3 @@
+Officeのファイル共同作業をオフにする
+
+[HKCU\SOFTWARE\Policies\Microsoft\OneDrive] "EnableAllOcsiClients"=dword:00000001

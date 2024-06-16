@@ -1,0 +1,10 @@
+下記のURLパターンを使用する。
+
+/main.aspx?pagetype=entitylist&etn=new_invoice&viewid=3d97fa66-4134-eb11-a813-000d3acd9697
+
+
+/main.aspx?pagetype=entitylist&etn=new_product&viewid=de1e5997-bfa6-4877-888d-d41edb898802
+
+/main.aspx?pagetype=entitylist&etn=new_tax_rate&viewid=16bd3c4f-5db1-4b8d-b27d-57ddb9e758af
+
+https://orgfe082b3a.crm7.dynamics.com/main.aspx?appid=591903ba-a18f-41eb-922e-f75cf8b86d7c&pagetype=entitylist&etn=&viewid=de1e5997-bfa6-4877-888d-d41edb898802&viewType=1039

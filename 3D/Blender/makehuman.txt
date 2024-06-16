@@ -1,0 +1,16 @@
+1.初期セットアップ
+
+    下記のフォルダに[\scripts\addons]フォルダを作成する
+    C:\Users\%username%\AppData\Roaming\Blender Foundation\Blender\[ブレンダーのバージョン]
+    
+
+    http://www.makehumancommunity.org/content/plugins.html
+    から最新の「MakeHuman plugin for blender」をダウンロードする
+
+    Blenderを起動して「編集 > 設定」を開く
+
+    「アドオン > インストール」からプラグインのzipを選択する
+
+
+
+

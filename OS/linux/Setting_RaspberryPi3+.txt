@@ -1,0 +1,177 @@
+########################
+# 初期設定
+########################
+
+1.
+Raspberry Piの公式サイトより、
+RASPBIAN STRETCH LITE
+をダウンロード
+
+https://www.raspberrypi.org/downloads/
+
+
+2.
+SDカードフォーマッターでSDカードをフォーマット
+
+3.
+DD for Windows
+で SDカードにOSイメージを焼く
+
+
+########################
+# システム設定
+########################
+1. キーボードの設定変更
+  sudo raspy-config
+2. タイムゾーン変更
+3. Wifi Country を変更
+4. sshを有効化
+  IP:192.168.11.16
+
+sudo apt-get update
+
+
+########################
+# WiFi と Bluetooth をoffにする場合
+########################
+sudo vi /boot/config.txt
+
+#turn wifi and bluetooth off
+dtoverlay=pi3-disable-wifi
+dtoverlay=pi3-disable-bt
+
+
+########################
+# MySQL インストール
+########################
+sudo apt-get install mysql-server
+
+########################
+# SQLite クライアントインストール
+########################
+sudo apt-get install sqlite
+
+########################
+# Apache インストール
+########################
+sudo apt-get -y install apache2
+sudo service apache2 start
+
+# ブラウザでアクセスして、正常起動確認
+# httpdはデフォルトで自動起動設定されている
+
+########################
+# mySqlクライアントインストール
+########################
+sudo apt-get -y install mysql-client
+# 通常のリポジトリが使えないため、5.6はインストールできない
+
+########################
+＃php 5.6 インストール
+########################
+sudo apt-get -y install php5
+sudo apt-get -y install php5-mysql
+sudo apt-get -y install php5-mbstring
+
+# SQLiteが必要な場合
+sudo apt-get -y install php5-sqlite
+
+########################
+# install Git
+########################
+sudo apt-get install git
+
+########################
+# Install Composer
+########################
+cd /usr/local/bin
+curl -sS https://getcomposer.org/installer | sudo php
+
+
+########################
+# auto start deamon
+# Install sysv-rc-conf
+########################
+sudo apt-get install sysv-rc-conf
+sudo sysv-rc-conf --list
+sudo sysv-rc-conf mysql on
+
+########################
+# MySQL Setup
+########################
+# リモート接続を可能にする
+sudo vi /etc/mysql/my.cnf
+
+# Comment Out
+#bind-address = 127.0.0.1
+
+sudo /etc/init.d/mysql restart
+
+########################
+# Setup Apache
+########################
+
+# mode_rewriteを有効化
+sudo a2enmod rewrite
+
+sudo vi /etc/apache2/mods-available/mime.conf
+
+// 追加
+AddType application/x-httpd-php .php 
+
+
+sudo vi /etc/apache2/apache2.conf
+
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+:q
+
+# apache 再起動
+sudo service apache2 restart
+
+########################
+# PHP 設定
+########################
+sudo vi /etc/php5/apache2/php.ini
+
+[Date]
+date.timezone = "Asia/Tokyo"
+
+vi /etc/php5/cli/php.ini
+
+[Date]
+date.timezone = "Asia/Tokyo"
+
+# ---------------
+# プロジェクトに必要な
+# ライブラリをインストール
+# ---------------
+# プロジェクトのルートディレクトに移動
+cd [path]
+
+# 下記のコマンドで依存ライブラリをインストール
+composer.phar install
+
+# ---------------
+# assetsの展開
+# ---------------
+php app/console assets:install
+php app/console assetic:dump
+
+# ---------------
+# app_dev.phpにローカル以外からもアクセスできるようにする
+# ---------------
+
+vi /var/www/html/[projectname]/web/app_dev.php
+
+#IP一覧にアクセス元PCのアドレス追加
+if (isset($_SERVER['HTTP_CLIENT_IP'])^M
+    || isset($_SERVER['HTTP_X_FORWARDED_FOR'])^M
+    || !(in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1', '192.168.11.18')) || php_sapi_name() === 'cli-server')^M
+) {^M
+    header('HTTP/1.0 403 Forbidden');^M
+    exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');^M
+}

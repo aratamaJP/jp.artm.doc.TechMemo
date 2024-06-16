@@ -1,0 +1,59 @@
+Automateの
+
+Click a button to convert a Word Online (Business) document to PDF
+
+を使えばいけそう？
+
+
+* キーワード
+Word Online => Premium コネクタ
+Automate
+テンプレート
+
+
+Premium コネクタ
+
+PowerAutomateとWord Online, OneDrive（他のドライブでも可）
+を組み合わせて, PDFを作成できることを確認。
+
+
+「表」も差し込むことができる？
+
+作成したPDFを開き、印刷までのナビゲートはできる？
+AutomateのResponse to PowerApps
+でPDF生成結果を返せそう。
+
+
+モデル駆動アプリへ、Automate呼び出しボタンは設置できる？
+
+最悪、キャンバスアプリで検索、ボタンで起動でも良い
+
+↓
+
+実装してみる。
+
+
+Automateから帰ってきたコンテンツを
+UpdateContext関数でローカル変数に格納する。
+
+PDF Viewer（試験版)コントロールのDocumentプロパティに
+Automateの戻り値を設定してみる。
+https://www.illuminate-j.jp/blog/powerapps-pdfviewertips
+
+PDF Viewerが印刷機能に対応していない。(2020.06.09時点）
+
+
+Power Platform管理センター
+環境の…から設定 > テンプレート > 差し込み印刷テンプレート
+をクリック
+
+
+
+FlowでOneDriveにPDFを作成
+キャンバスアプリのLaunch関数でOneDriveファイルのURLを渡したらいける？
+
+
+
+
+2020年7月にキャンバスアプリの印刷機能パブリックプレビュー公開予定
+https://docs.microsoft.com/ja-jp/power-platform-release-plan/2020wave1/microsoft-powerapps/planned-features

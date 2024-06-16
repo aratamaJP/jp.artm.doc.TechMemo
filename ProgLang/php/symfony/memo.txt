@@ -1,0 +1,15 @@
+composer.phar installで
+a lack of memory and not having swap configured
+というエラーが出た場合　Swap領域を増やす必要がある
+
+# Swap領域管理サービスを停止。
+sudo service dphys-swapfile stop
+
+# Swap領域設定ファイルを編集。
+sudo vi /etc/dphys-swapfile
+CONF_SWAPSIZE=2048
+
+# Swap領域管理サービスを再開
+$ sudo service dphys-swapfile start
+
+

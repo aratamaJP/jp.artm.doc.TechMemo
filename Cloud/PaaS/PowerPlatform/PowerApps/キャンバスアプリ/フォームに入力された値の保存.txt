@@ -1,0 +1,15 @@
+埋め込みキャンバスアプリの
+フォームに入力された値を保存する。
+
+
+１．
+編集フォームの名前を EditForm に変更します。
+
+２．
+ボタン コントロールを追加し、OnSelect プロパティに次の式を設定します。
+SubmitForm(EditForm)
+
+３．
+onSelectを下記のようにすることで、
+保存されたあとの値でキャンバスアプリを再読み込みが可能。
+SubmitForm(EditForm);[@ModelDrivenFormIntegration].RefreshForm(true);

@@ -1,0 +1,19 @@
+# Rubyのインストール
+https://rubyinstaller.org/downloads/
+から、RubyInstallers WITH DEVKIT
+をダウンロードし、インストールする。
+
+※ 2018.07.06 現在 SQLite3が ruby 2.5系に対応していない模様
+ruby 2.4系をインストールする
+
+ruby -v
+を実行し、インストールされていることを確認
+
+# SQLiteのインストール
+https://www.sqlite.org/download.html
+の
+Precompiled Binaries for Windows
+から、ダウンロード・解凍する。
+
+sqlite3.dll を　Rubyをインストールしたフォルダ（C:￥Ruby21など）の配下にある 
+bin フォルダに配置する。

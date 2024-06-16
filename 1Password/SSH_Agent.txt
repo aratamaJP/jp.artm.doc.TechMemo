@@ -1,0 +1,62 @@
+###################################
+# 1Passwordの設定
+###################################
+
+1.
+1Passwordの設定 > 開発者 > SSHエージェントを使用
+にチェックを入れる
+
+2.
+1Passwordから公開鍵を
+C:\Users\ykym7\.ssh
+配下にダウンロードする
+
+id_xserver_artm.pub
+id_github.pub
+id_github_smooth.pub
+
+###################################
+# Windowsの設定
+###################################
+
+１．競合サービスの停止
+
+    「ファイル名を指定して実行」から「services.msc」を起動する
+
+    「OpenSSH Authentication Agent」を探し、
+    これが「有効」になっている場合は「無効」に変更する
+
+
+２．SSHの使い分けを設定
+
+    ~/.ssh/config に、下記の設定を記述する。
+
+Host artmjp.xsrv.jp
+  HostName artmjp.xsrv.jp
+  Port 10022
+  User artmjp
+  IdentityFile ~/.ssh/id_xserver_artm.pub
+  IdentitiesOnly yes
+
+Host github.com-artm
+  HostName github.com
+  Port 22
+  User yokoyama@artm.jp
+  IdentityFile ~/.ssh/id_github.pub
+  IdentitiesOnly yes
+
+Host github.com-smooth
+  HostName github.com
+  Port 22
+  User smooth-yokoyama
+  IdentityFile ~/.ssh/id_github_smooth.pub
+  IdentitiesOnly yes
+
+
+###################################
+# Gitの設定
+###################################
+
+下記のコマンドを実行する
+git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+

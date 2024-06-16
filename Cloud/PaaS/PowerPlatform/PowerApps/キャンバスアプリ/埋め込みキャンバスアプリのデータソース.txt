@@ -1,0 +1,12 @@
+[@ModelDrivenFormIntegration.item]
+
+でモデル駆動アプリのフォーム
+からレコードに読み取り専用でアクセスできる。
+
+関連エンティティのサブグリッドにアクセスしたい場合は、
+[@ModelDrivenFormIntegration.item.関連エンティティ名]
+でアクセス可能
+
+参考：
+https://docs.microsoft.com/ja-jp/powerapps/maker/model-driven-apps/embedded-canvas-app-properties-actions
+https://docs.microsoft.com/ja-jp/powerapps/maker/model-driven-apps/pass-current-embedded-canvas-app

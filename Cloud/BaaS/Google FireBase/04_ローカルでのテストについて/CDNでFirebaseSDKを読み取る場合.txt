@@ -1,0 +1,15 @@
+Hosting環境を用いるため、
+FirebaseSDKをnpmではなく CDNで取得する場合、
+
+ローカルで動作確認するには
+firebase serve
+コマンドで実行する必要がある。
+
+(webpack の webpack-dev-server ではCDNが解決できない）
+
+firebase serve
+も変更はリアルタイムに反映されるので、
+
+serveは起動したまま、
+
+別窓でnpm run buildを実行すれば良い。

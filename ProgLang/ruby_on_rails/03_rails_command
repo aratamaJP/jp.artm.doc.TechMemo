@@ -1,0 +1,11 @@
+# generate controller
+
+rails generate controller [controller_name] [action_name]
+
+
+# Windows環境で
+# cannot load such file -- sqlite3/sqlite3_native (LoadError)
+# のエラーが出る場合
+
+gem uninstall -a sqlite3
+gem install sqlite3 --platform=ruby

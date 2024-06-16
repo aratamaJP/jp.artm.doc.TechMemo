@@ -1,0 +1,19 @@
+■ 現象
+承認申請フローが
+「管理者モードのため実行できない」旨のエラーが表示される。
+しかし、環境の管理者モードは解除されている。
+
+参考ページ１：
+https://support.microsoft.com/en-us/topic/power-automate-approvals-provisioning-overview-and-troubleshooting-2306313a-49fa-efde-c716-a34c573ec942
+
+↑
+
+とくに解決にいたる方法は載ってなかった。
+
+
+何度か、環境の管理者モード、バックグラウンド更新モードのON/OFFを繰り返すも改善なし。
+管理部門アプリの再エクスポート～再インポートを試してみる。
+
+
+承認の接続を作り直してみる。
+

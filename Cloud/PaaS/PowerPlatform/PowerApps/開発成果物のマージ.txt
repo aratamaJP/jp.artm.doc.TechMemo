@@ -1,0 +1,6 @@
+https://docs.microsoft.com/ja-jp/power-platform/alm/how-managed-solutions-merged
+
+
+ソリューションの更新
+https://docs.microsoft.com/ja-jp/powerapps/maker/common-data-service/update-solutions
+

@@ -1,0 +1,64 @@
+#--------------------
+# Composerのための前準備
+#--------------------
+＃PHP.ini
+php.ini-developmentをphp.iniへリネームコピー
+
+php.iniの末尾に下記を追加
+
+date.timezone = Asia/Tokyo
+mbstring.internal_encoding = UTF-8
+extension_dir = "ext"
+extension=php_openssl.dll
+
+#--------------------
+# Composerインストール
+#--------------------
+# Composerのインストーラをダウンロードして実行
+https://getcomposer.org/download/
+
+
+#--------------------
+# ComposerでCodeSnifferインストール
+#--------------------
+# composer global require "squizlabs/php_codesniffer=*"
+composer global require "squizlabs/php_codesniffer=2.7.0"
+
+# 環境変数Pathに
+# %USERPROFILE%\vendor\bin
+# を追加
+
+# 再起動して環境変数反映
+
+# Symfony2 コーディングルール
+composer global require --dev escapestudios/symfony2-coding-standard=*
+
+
+# Drupal のコーディングルール取得（unsed useのため）
+# ダウンロード、解凍
+https://www.drupal.org/project/coder
+
+※解凍したファイル内の "coder\coder_sniffer\Drupal"フォルダーを
+%USERPROFILE%\AppData\Roaming\CodeSniffer\Drupalへ配置
+
+# phpcs.bat --config-set installed_paths %USERPROFILE%\AppData\Roaming\Composer\vendor\escapestudios\symfony2-coding-standard,%USERPROFILE%\AppData\Roaming\CodeSniffer
+phpcs.bat --config-set installed_paths %USERPROFILE%\AppData\Roaming\Composer\vendor\escapestudios\symfony2-coding-standard,%USERPROFILE%\AppData\Roaming\Composer\vendor\squizlabs\php_codesniffer\CodeSniffer
+
+# CodeSnifferインストール状態確認
+phpcs.bat --config-show
+phpcs.bat -i
+
+# 独自コーディングルール作成（Symfony２ + unuse use)
+# %USERPROFILE%\AppData\Roaming\CodeSniffer\MyDefault\ruleset.xml
+<?xml version="1.0"?>
+<ruleset name="MyDefault">
+ <description>My custom coding standard.</description>
+ <rule ref="Symfony2" />
+ <rule ref="Drupal.Classes.UnusedUseStatement" />
+</ruleset>
+
+
+# Visual Studio Code の設定で
+# MyDefaultを設定
+
+"phpcs.standard": "MyDefault"

@@ -1,0 +1,31 @@
+{
+    "git.enableSmartCommit": true,
+    "liveServer.settings.https": {
+        "enable": true,
+        "cert": "C:\\Program Files\\MkCert\\localhost+2.pem",
+        "key" : "C:\\Program Files\\MkCert\\localhost+2-key.pem",
+        "passphrase": ""
+        },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "files.trimTrailingWhitespace": true,
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false
+    },
+    "php.validate.executablePath": "C:\\Program Files\\php\\php.exe",
+    "[bas]" : {
+        "files.encoding": "shiftjis"
+    },
+    "[cls]" : {
+        "files.encoding": "shiftjis"
+    },
+    "[frm]":
+    {
+        "files.encoding": "shiftjis"
+    },
+    "[bat]":
+    {
+        "files.encoding": "shiftjis"
+    },
+    "files.autoGuessEncoding": true
+
+}

@@ -1,0 +1,72 @@
+参考ページ
+https://www.c-sharpcorner.com/blogs/how-to-delete-microsoft-flows-using-powershell
+https://powerusers.microsoft.com/t5/Building-Flows/Not-able-to-Turn-off-the-Flow/td-p/562838
+https://powerapps.microsoft.com/en-us/blog/gdpr-admin-powershell-cmdlets/
+
+
+
+Run PowerShell as an administrator
+
+
+Execute the following import commands:
+Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Install-Module -Name Microsoft.PowerApps.PowerShell -AllowClobber
+
+
+If you are prompted to accept the change to InstallationPolicy value of the repository, accept [A] Yes to all modules by typing in ‘A’ and hitting enter for each module.
+
+
+PowerShellの各コマンドのヘルプは
+Get-Help [コマンド名]
+で確認が可能
+
+
+下記コマンドを入力し、PowerAppsにログインする
+
+Add-PowerAppsAccount
+
+
+
+下記コマンドで環境IDを取得する
+Get-PowerAppEnvironment
+
+
+eMnetのdevelop環境は
+ee1a8c71-b289-462f-81d0-372385e108e3
+
+
+削除したいフローの編集画面を開き
+URLの末尾から、フローのIDを取得する
+
+eMnetの「広告アカウントインポート」は
+5999d978-7c96-4f25-8627-01afa10caeef
+
+
+下記のコマンドを実行して、フローの情報を取得・間違いがないか確認
+
+Get-Flow -FlowName [フローID] -EnvironmentName [環境ID]
+
+Get-Flow -FlowName 5999d978-7c96-4f25-8627-01afa10caeef -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3
+
+Get-Flow -FlowName a8878d5e-c3ee-4a36-af61-bc9723e1af5f -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3
+
+Get-Flow -FlowName 13c5abec-fe7f-4212-bfb8-b9ef51f43de7 -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3
+
+Get-Flow -FlowName 13c5abec-fe7f-4212-bfb8-b9ef51f43de7 -EnvironmentName 704ce723-e53a-4786-a005-b9ce1734cb9d
+
+
+下記のコマンドを実行してエラーメッセージを確認する
+Disable-Flow -FlowName 5999d978-7c96-4f25-8627-01afa10caeef -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3
+
+Disable-Flow -FlowName a8878d5e-c3ee-4a36-af61-bc9723e1af5f -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3
+
+NotFoundとなっているフローIDで Get-Flowコマンドを呼び出す
+
+Get-Flow -FlowName b7242123-e4f3-45fb-a0ab-273257663d67
+
+
+
+次のコマンドを実行してフローを削除する
+
+Remove-Flow -FlowName [フローID]  -EnvironmentName [環境ID] 
+Remove-Flow -FlowName 5999d978-7c96-4f25-8627-01afa10caeef -EnvironmentName ee1a8c71-b289-462f-81d0-372385e108e3

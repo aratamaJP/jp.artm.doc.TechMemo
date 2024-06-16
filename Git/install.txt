@@ -1,0 +1,80 @@
+###################################
+# 1Passwordの設定
+###################################
+
+1PasswordのSSH Agentの設定を行う
+※別ファイル /1Password/SSH_Agent.txtを参照
+
+###################################
+# メインアカウント
+###################################
+
+# 1.SSH証明書の作成
+#
+#     cd 'C:\Program Files\Git\usr\bin\'
+#
+#     ssh-keygen -C "yokoyama@artm.jp"
+
+2.Gitのユーザー情報を設定
+
+    git config --global user.email "yokoyama@artm.jp"
+    git config --global user.name "Yokoyama Masahiro"
+
+# 3. 証明書の登録
+#
+#     1で作成された証明書の公開鍵 id_rsa.pub を visualstudio.com へ登録
+#
+#     explorer C:\Users\ykym7\.ssh
+
+###################################
+# smooth用 アカウント
+###################################
+
+# 1.SSH証明書の作成
+#
+#     mkdir ~\.ssh\smooth
+#
+#     cd 'C:\Program Files\Git\usr\bin\'
+#
+#     ssh-keygen -C "yokoyama.m@smooth-n.com" -f C:\Users\ykym7\.ssh\smooth\id_rsa
+#
+# 2. 証明書の登録
+#
+#     1で作成された証明書の公開鍵 id_rsa.pub を github.com へ登録
+#
+# 3.アカウント切替設定
+#
+#     ~/.ssh/config に利用する複数のアカウント情報を記述します。
+#
+# ----
+#
+# Host github.com
+#   HostName github.com
+#   User yokoyama@artm.jp
+#   Port 22
+#   IdentityFile ~/.ssh/id_rsa
+#   TCPKeepAlive yes
+#   IdentitiesOnly yes
+# Host github.com-smooth
+#   HostName github.com
+#   User smooth-yokoyama
+#   Port 22
+#   IdentityFile ~/.ssh/smooth/id_rsa
+#   TCPKeepAlive yes
+#   IdentitiesOnly yes
+
+4.リポジトリのクローン
+
+    リポジトリのクローン時には
+
+    git clone github.com-smooth:smooth-llc/[repository].git
+
+    と、「-smooth」をドメインに付与する
+
+5.コミッタ情報の切替
+
+    クローンしたリポジトリで下記コマンドを実行する
+
+    git config --local user.name "smooth-yokoyama"
+    git config --local user.email "yokoyama.m@smooth-n.com"
+

@@ -1,0 +1,2 @@
+Windowsターミナルで下記コマンドを実行する
+ssh artm.xsrv.jp

@@ -1,0 +1,192 @@
+FireBase入門
+1.	FireBaseとは？
+Googleが提供するmBaaSである。
+2.	mBaaS
+mobile backend as a Serviceの略。
+スマートフォンアプリの『バックエンド開発』が不要になるクラウドサービス。（サーバー開発が不要になる）
+FireBase以外のmBaaSには niftyの「ニフクラ mobile backend」、Facebookの「Parse」などがある。
+3.	FiraBaseの特徴
+iOS/AndroidアプリからWebサービスまで幅広く使え、アナリティクス、データベース、メッセージ、クラッシュ レポートなどの機能がある。
+状況に合わせて自動的にスケーリングされるため、大規模なアプリにも対応できる。
+4.	FireBaseの機能一覧
+より優れたアプリを作成
+Cloud Firestore
+グローバル スケールでアプリデータを保存および同期
+irebase のモバイルアプリ開発用の最新データベースです。直感的な新しいデータモデルで Realtime Database をさらに強化しています。Cloud Firestore は、Realtime Database よりも多彩で高速なクエリと高性能なスケーリングが特長です。
+ML Kit BETA
+モバイル デベロッパー向けの機械学習
+Cloud Functions
+サーバーを管理せずに、モバイルのバックエンド コードを実行
+Authentication
+アカウント機能。ユーザーを簡単かつ安全に認証
+Hosting
+静的ホスティングサービス。ウェブアプリ資産をすばやく安全に配信。
+GoogleのCDNの恩恵が得られます。
+Cloud Storage
+ユーザー作成した画像やファイルをアップロード/ダウンロードできます。Google と同じ規模でファイルを保存、配信
+Realtime Database
+リアルタイムで同期ができるデータベース。アプリデータを瞬時に保存および同期
+従来からある Firebase のデータベースです。リアルタイムのクライアント間同期が必要なモバイルアプリのための、効率的でレイテンシが低いソリューションです。
+FireStoreとの違いは下記を参照。
+https://firebase.google.com/docs/database/rtdb-vs-firestore?hl=ja
+アプリの品質を改善する
+Crashlytics
+リアルタイム クラッシュ レポートで問題に優先順位を付けて解決
+
+Performance Monitoring
+アプリのパフォーマンスに関するインサイトを取得
+
+Test Lab
+Googleがホストする端末でアプリをテスト
+
+App Distribution BETA
+Distribute pre-release versions of your app to your trusted testers
+
+ビジネスの成長を図る
+In-App Messaging BETA
+コンテキストに応じたメッセージを使用して、アプリのアクティブ ユーザーの心を掴みましょう
+
+Google Analytics
+無料のアプリ アナリティクスを無制限に使用
+Predictions
+Smart user segmentation based on predicted behavior
+
+A/B Testing BETA
+テストを通じてアプリのエクスペリエンスを最適化
+
+Cloud Messaging
+特定ターゲットに向けてメッセージや通知を送信
+
+Remote Config
+新しいバージョンをデプロイせずにアプリを変更
+
+Dynamic Links
+ディープリンクとアトリビューションを組み合わせて成長を促進
+
+
+
+npm
+    Node package manager
+    
+firebase-tools
+    Firebase CLI
+    firebaseのコマンドを使えるようにする。
+    npmでインストールすると、node.jsでコマンドが使えるようになる。
+
+
+freee-app-template-firebaseが
+Node.jsで作成されている。
+
+また、FireBaseのFunctionsの機能を使うには
+ローカルにNode.jsの環境が必要。
+
+
+
+// 初回のみ
+firebase login
+
+
+cd e:\temp\freee-app-template-firebase
+
+firebase use freeeapptemplate
+
+
+firebase functions:config:set env.mode=production env.region="asia-northeast1" freee.client_id=8e92342f7cc2181b8b58ff44985985c7be66a36c5e9e6e23e60533263e15ce82 freee.client_secret=5356ece270b08c4453ef76f7128807410ba42c24804e0c09e76356e6bcb2ff3b env.serviceaccountpath="config/service-account.json"
+
+npm run deploy
+
+
+-------------------------------------
+Debianの場合
+
+Hyper-VにDebianをインストールする
+
+
+Debianを起動してCUIに変更
+
+# systemctl get-default
+# systemctl set-default -f multi-user.target
+
+
+起動する
+
+-------------------------------------
+Windowsの場合
+
+git clone https://github.com/freee/freee-app-template-firebase.git
+
+cd freee-app-template-firebase
+
+npm install -g firebase-tools
+
+// firebaseにログイン
+firebase login:ci
+
+
+// プロジェクトディレクトリの設定
+firebase init
+
+
+どの機能を利用するか聞かれるので、Firestore, Functions, Hosting, Storageを選択
+
+functions の言語を聞かれるので、typescript を選択
+
+What language would you like to use to write Cloud Functions? 
+TypeScript
+
+tslint を適用するか聞かれるので、yes を選択
+ Do you want to use TSLint to catch probable bugs and enforce style?
+  (Y/n)
+
+File functions/tslint.json already exists. Overwrite?
+YES
+
+firebase プロジェクトを新規作成するか、
+作成したものを選択するか聞かれるので、
+先ほど作成したプロジェクトを選択
+
+npm install を今行うか聞かれるので、no を選択
+
+その他上書きが発生する場合は、全て no を選択
+
+
+２つのファイルが生成される
+
+プロジェクトの構成を含む firebase.json 構成ファイル。
+
+プロジェクト エイリアスが保存される .firebaserc ファイル。
+
+
+■各設定ファイルをコピーする
+
+
+【npm run setup】
+
+npm install
+cd hosting
+npm install
+cd ../functions
+npm install
+
+
+■ローカル環境を実行してみる
+
+npm start
+
+
+■プロジェクトを切り替える
+firebase use freeeapptemplate
+
+
+■設定
+
+firebase functions:config:set env.mode=production env.region="asia-northeast1" freee.client_id=8e92342f7cc2181b8b58ff44985985c7be66a36c5e9e6e23e60533263e15ce82 freee.client_secret=5356ece270b08c4453ef76f7128807410ba42c24804e0c09e76356e6bcb2ff3b env.serviceaccountpath="config/service-account.json"
+
+■デプロイ
+
+
+cd hosting
+npm run build
+cd ../functions
+npm run build
+firebase deploy

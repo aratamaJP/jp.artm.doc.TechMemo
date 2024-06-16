@@ -1,0 +1,46 @@
+
+//---------------------------------------------
+// Hosting
+
+1. Firebaseにブラウザでログインし、
+  サイドバーの「Hosting」を選択し「始める」をクリックする。
+  プロジェクトを作成する。
+
+
+2. Hostingの機能を初期設定する
+  firebase init
+
+  [Hosting] を選択する
+
+  [Use an existing project]
+  使いたいプロジェクトを選択して Enter
+
+  静的ファイルを設置するフォルダを指定する。
+  デフォルトのままなら「Public」
+  Reactを使うなら「build」と書いてEnter
+  Vueを使うなら「dist」
+
+  single-page app なら 「y」を選択 (Reactの場合はy)
+ 
+  * ここまでで
+    .firebasercとfirebasejsonのファイルが作成される
+
+3. Reactのプロジェクトをビルドする
+
+  npm run build
+
+  * コンパイルされる public, src => build
+
+<h2>Firebase上にデプロイする場合</h2>
+<p>
+    firebase deploy<br>
+    * プロジェクトのルートディレクトリで実施する
+</p>
+
+<h2>ローカルでホスティングのテストをする場合</h2>
+<p>
+    firebase serve --only hosting    
+</p>
+* デプロイ先のプロジェクトを変更するとき
+firebase use [ Project ID ]
+

@@ -1,0 +1,13 @@
+下記から「nvm-setup.exe」をダウンロードし、インストールする
+https://github.com/coreybutler/nvm-windows/releases
+
+
+下記のコマンドでインストール可能なバージョンを確認する
+nvm list available
+
+下記のコマンドで、nodeをインストールする
+nvm install [バージョン]
+
+下記のコマンドで、使用するバージョンを切り替える
+nvm use [バージョン]
+

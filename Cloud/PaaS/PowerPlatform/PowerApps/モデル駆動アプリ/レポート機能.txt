@@ -1,0 +1,4 @@
+参考：
+https://docs.microsoft.com/ja-jp/powerapps/maker/model-driven-apps/add-reporting-to-app
+
+

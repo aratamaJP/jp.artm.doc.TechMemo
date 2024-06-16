@@ -1,0 +1,47 @@
+###################
+#Ubuntu Desktop 18.0.4 を Hyper-Vに インストールする
+###################
+
+Ubuntu Desktop をミニマムインストールする
+
+仮想マシン名は「Ubuntu18」にする
+
+user:01mi27ka
+
+###################
+# 必要なソフトウェアをインストール
+###################
+sudo apt install openssh-server
+
+###################
+# SSH2で接続
+###################
+
+設定画面でipアドレスを確認
+
+tera termで接続する
+
+
+###################
+# Node.jsをインストール
+###################
+
+// sudo apt install nodejs
+// sudo apt install npm
+// curl https://www.npmjs.com/install.sh | sudo sh
+// nodejs -v
+// npm -v
+
+
+###################
+# 最新版のNode.jsをインストール
+###################
+sudo apt install -y nodejs npm
+sudo npm install n -g
+sudo n stable
+sudo apt purge -y nodejs npm
+exec $SHELL -l
+
+// 再ログインする
+node -v
+npm -v

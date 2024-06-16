@@ -1,0 +1,19 @@
+１．
+変数で「skipToken」を用意する
+
+２．
+empty(variables('skipToken')) が true
+を条件に Do Untilループを回す
+
+
+３．
+ループ内でLispRecordsを呼び出す。
+・スキップトークンにskipToken変数を指定
+・ListRecordsのページングを有効にし、ページ当たりの件数を指定
+
+
+４．
+ListRecordsの結果から、skipTokenを取り出し
+変数に設定する
+
+decodeUriComponent(last(split(uriQuery(outputs('ListRecords名')?['body/@odata.nextLink']), 'skiptoken=')))

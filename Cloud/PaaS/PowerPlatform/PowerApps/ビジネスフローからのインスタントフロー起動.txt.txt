@@ -1,0 +1,5 @@
+https://docs.microsoft.com/ja-jp/business-applications-release-notes/april19/microsoft-flow/instant-steps-business-process-flows
+
+ソリューションの画面から
+「追加」> 「フロー」でフローを作成する。
+

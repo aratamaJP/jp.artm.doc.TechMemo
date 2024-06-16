@@ -1,0 +1,9 @@
+https://console.cloud.google.com/iam-admin/audit
+で「Frestore/Datastore API」を有効にする
+
+ログエクスプローラーを開く
+https://console.cloud.google.com/logs/query
+
+requestMetadataのcallerIpが
+接続者のIPアドレスが表示されている
+

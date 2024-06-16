@@ -1,0 +1,24 @@
+参考：
+https://docs.microsoft.com/ja-jp/power-automate/limits-and-config
+
+例えばコンカレンシー制御で同時実行数を１とした場合、
+実行中以外のものは「実行待ち」状態となるが、
+
+デフォルトではこの実行可能待ち個数が10である。
+
+参考ページを見ると、最大100まで増やせるとのこと。
+
+
+-- 実行待ち最大数の増やし方 --
+
+参考２：
+https://sharepains.com/2020/02/24/concurrency-in-the-power-platform/
+
+
+
+"runtimeConfiguration": {
+    "concurrency": {
+        "runs": <max-runs>,
+        "maximumWaitingRuns": <max-runs-queue>
+    }
+},

@@ -1,0 +1,11 @@
+フィールドの制御は「業務ルール」で
+表示／非表示、有効／無効の制御が可能。
+
+https://docs.microsoft.com/ja-jp/powerapps/maker/common-data-service/data-platform-create-business-rule
+
+
+
+フィールド単位のアクセス可否は
+
+フィールドセキュリティプロファイルで実装可能のようだ。
+https://docs.microsoft.com/ja-jp/dynamics365/customerengagement/on-premises/admin/field-level-security

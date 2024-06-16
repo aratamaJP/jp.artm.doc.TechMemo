@@ -1,0 +1,7 @@
+参考ぺージ
+https://docs.microsoft.com/ja-jp/powerapps/maker/model-driven-apps/configure-event-handlers-legacy
+
+https://docs.microsoft.com/ja-jp/powerapps/developer/model-driven-apps/clientapi/walkthrough-write-your-first-client-script
+
+https://docs.microsoft.com/ja-jp/powerapps/developer/model-driven-apps/script-jscript-web-resources
+

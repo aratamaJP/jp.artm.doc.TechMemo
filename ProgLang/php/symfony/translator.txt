@@ -1,0 +1,9 @@
+app/config/config.yml
+    locale を ja に設定します。
+
+    translator:      { fallback: %locale% }
+    のコメントアウトを外す
+
+翻訳ファイルを下記のいずれかに作成する
+app/Resources/translations/messages.ja.yml
+[バンドルディレクトリ]/Resources/translations/[バンドル名]_messages.ja.yml

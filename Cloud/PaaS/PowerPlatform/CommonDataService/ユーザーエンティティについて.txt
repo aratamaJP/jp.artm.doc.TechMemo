@@ -1,0 +1,10 @@
+ユーザーエンティティの一部プロパティは
+Microsoft 365 管理センター で保持されて管理されます。 
+
+ユーザーを作成または更新すると、これらのユーザープロファイルのフィールドは、
+Microsoft Power Platform 環境で自動的に更新されて同期されます。
+
+
+
+参考：
+https://docs.microsoft.com/ja-jp/power-platform/admin/create-users-assign-online-security-roles

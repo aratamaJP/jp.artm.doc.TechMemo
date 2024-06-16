@@ -1,0 +1,2 @@
+https://docs.microsoft.com/ja-jp/powerapps/developer/common-data-service/reference/about-entity-reference
+

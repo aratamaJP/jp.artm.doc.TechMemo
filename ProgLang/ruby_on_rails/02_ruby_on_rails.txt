@@ -1,0 +1,120 @@
+# ----------------
+# （サーバ環境の場合）
+# Ruby on Railsに必要なパッケージをインストール
+# ----------------
+sudo apt-get install -y libsqlite3-dev
+#sudo apt-get install -y nodejs
+
+# ------------
+# Ruby on Railsをインストールする
+# ------------
+
+# gemのUpdate
+gem install rubygems-update --source http://rubygems.org/
+
+# Bundlerインストール
+gem install bundler
+
+# sqliteインストール
+gem install sqlite3
+
+# rails のインストール
+gem install rails
+
+# ------------
+# create project
+# ------------
+
+# Create Project
+rails new [project name] --skip-bundle
+
+# Upload project for server
+
+# install necessary bundles
+cd [project directory]
+bundle install
+
+# Windows環境でエラーが出る場合
+Gemfileの先頭行
+source 'https://～'
+を一時的に
+source 'http://～'
+へ変更する
+
+# ------------
+# RaspberryPi で
+#
+# /home/pi/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/bootsnap-1.3.0/lib/bootsnap/compile_cache/iseq.rb:18:
+# [BUG] Bus Error at 0x5774a787
+# ruby 2.5.1p57 (2018-03-29 revision 63029) [armv7l-linux-eabihf]
+#
+# のエラーがでる場合
+# ------------
+
+vi config/boot.rb
+# ↓をコメントアウト
+#require 'bootsnap/setup'
+
+
+# ------------
+# Railsの正常起動を確認する
+# ------------
+
+$ rails server -b 0.0.0.0
+
+http://[ホスト]:3000/
+
+Ctr-C で終了
+
+
+# ------------
+# Apache上で起動できる準備
+# passengerのインストール
+# ------------
+gem install passenger
+
+# passenger apache2 module のインストール
+# 実行時の画面出力に従って、必要なモジュールをapt-getでインストールする
+passenger-install-apache2-module
+
+
+# Apacheの設定
+# 画面出力に従って、apacheの設定にmodsの読み込みを追加
+
+sudo vi /etc/apache2/mods-available/passenger.load
+sudo ln -s /etc/apache2/mods-available/passenger.load /etc/apache2/mods-enabled/passenger.load
+
+# ------------
+# Railsアプリのリンク作成
+# ------------
+sudo ln -s /opt/ruby_on_rails/[app_name]/public /var/www/html/[app_name]
+
+# 例
+# sudo ln -s /opt/ruby_on_rails/clovok/public /var/www/html/clovok
+
+# ------------
+# Apache VirtualHost の設定
+# ------------
+
+sudo vi /etc/apache2/sites-enabled/000-default.conf 
+
+<VirtualHost *:80>
+
+    # 追加 BGN
+    <Directory /var/www/html>
+            AllowOverride all
+            Options -MultiViews
+    </Directory>
+
+    #詳細ログ
+    RailsEnv development
+    # アプリ分、この行を繰り返し
+    RailsBaseURI /[app_name]
+    # 追加 END
+
+</VirtualHost>
+
+# ------------
+# Apache 再起動
+# ------------
+sudo /etc/init.d/apache2 restart
