@@ -13,10 +13,10 @@
     cd "C:\Program Files\MkCert"
 
     # コマンドを実行すると、スタンドアロン認証局が作成される
-    mkcert.exe -install
+    .\mkcert.exe -install
 
     # コマンドを実行すると、同じフォルダ内に証明書が生成される
-    mkcert.exe localhost 127.0.0.1 ::1
+    .\mkcert.exe localhost 127.0.0.1 ::1
 
 
 ■ Visual Studio Codeを設定する
@@ -24,12 +24,16 @@
     拡張機能「Live Server」をインストールする。
 
     画面左下の歯車マーク > 設定をクリック
-    「設定の検索」に「live http」を入力して検索
 
-    設定を下記のように変更する
+    右上のアイコンをクリックし、設定の
+    テキスト編集モードに入る
 
-    "enable": true,
-    "cert": "C:\Program Files\MkCert\localhost+2.pem",
-    "key" : "C:\Program Files\MkCert\localhost+2-key.pem",
-    "passphrase": ""
+    下記の設定内容を追記する
+
+    "liveServer.settings.https": {
+        "enable": true,
+        "cert": "C:\\Program Files\\MkCert\\localhost+2.pem",
+        "key": "C:\\Program Files\\MkCert\\localhost+2-key.pem",
+        "passphrase": ""
+    }
 
