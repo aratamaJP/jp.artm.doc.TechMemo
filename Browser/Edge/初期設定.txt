@@ -1,9 +1,13 @@
+Windowsを「組織用に設定」とした場合、
+Microsoft 365の契約プランによってはブラウザの同期設定が使えない（Entra ID State Romingサービスがプランに含まれていない）
+
+その場合Chromeと同様に、OneDriveのプロファイルディレクトリ共有で対応する。
+
 １．移動ユーザー プロファイルをオンにする
 
-    設定するユーザーに管理者権限が付与されていることを確認する。
     regeditを管理者として起動する
     
-    HKEY_CURRENT_USER\SOFTWARE\Policies\Google\Chrome
+    HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge
     にDWORDの値
     
     RoamingProfileSupportEnabled
@@ -12,15 +16,12 @@
 
 ２．プロファイルの保存場所をOneDriveに変更
 
-
-    HKEY_CURRENT_USER\SOFTWARE\Policies\Google\Chrome
+    HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge
     にREZ_SZの値
 
     RoamingProfileLocation
-    を、値「C:\Users\ykym7\OneDrive - 合同会社あらたま\Roaming\Google\Chrome」で追加する
+    を、値「C:\Users\ykym709\OneDrive - 合同会社あらたま\Roaming\Edge」で追加する
 
-    組織用に設定したWindowsの場合
-    C:\Users\ykym709\OneDrive - 合同会社あらたま\Roaming\Google\Chrome
 
 ３．Chromeの設定を確認する
     
@@ -31,7 +32,7 @@
     [About] ページの [Local state] で、
     [Local Sync Backend Enabled] がtrueになっていることを確認する
 
-    
+    → falseのまま。この設定でも組織用Windowsの制限は回避できないっぽい。
     
     [Local Backend Path] が前項で指定したパスになっていることを確認する。
 
