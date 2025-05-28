@@ -8,11 +8,6 @@
 ■  リモートに存在しない、ローカル作業ブランチを削除する（PowerShell)
 
     git pull --prune
-    git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
-    git branch -vv | Select-String -Pattern "gone]" | %{ echo $_.ToString().Trim() }
-
-■  リモートに存在しない、ローカル作業ブランチを削除する（PowerShell)
-
     git branch --merged ` | Select-String -NotMatch -Pattern "(\*|main|master|staging)" ` | %{ git branch -d $_.ToString().Trim() }
 
 ■ リベースの実行

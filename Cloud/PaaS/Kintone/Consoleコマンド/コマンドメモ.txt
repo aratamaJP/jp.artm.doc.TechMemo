@@ -1,0 +1,5 @@
+フィールドを活性化する
+
+    const rec = kintone.app.record.get();
+    rec.record[].disabled = false
+    kintone.app.record.set(rec)
