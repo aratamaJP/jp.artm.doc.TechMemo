@@ -3,3 +3,10 @@
     const rec = kintone.app.record.get();
     rec.record[].disabled = false
     kintone.app.record.set(rec)
+
+フィールドを表示する
+
+    kintone.app.record.setFieldShown(, true)
+
+    例：
+    kintone.app.record.setFieldShown("システムグループ", true)
