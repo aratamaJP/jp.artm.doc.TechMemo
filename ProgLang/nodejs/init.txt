@@ -1,18 +1,23 @@
-npm install --save kintone-ui-component
-npm install --save luxon
-npm install --save sweetalert2
-npm install --save vue
+npm install --save @kintone/rest-api-client
 
 npm install --save-dev @babel/core
 npm install --save-dev @babel/plugin-transform-modules-commonjs
 npm install --save-dev @babel/preset-env
-npm install --save-dev @babel/plugin-proposal-private-methods
+npm install --save-dev @babel/plugin-transform-private-methods
 npm install --save-dev babel-loader
 npm install --save-dev css-loader
-npm install --save-dev vue-loader
-npm install --save-dev vue-style-loader
-npm install --save-dev vue-template-compiler
 npm install --save-dev glob
 npm install --save-dev style-loader
 npm install --save-dev webpack
 npm install --save-dev webpack-cli
+
+#必要に応じて
+npm install --save kintone-ui-component
+npm install --save luxon
+npm install --save sweetalert2
+
+#Vueを使用する場合
+npm install --save vue
+npm install --save-dev vue-loader
+npm install --save-dev vue-style-loader
+npm install --save-dev vue-template-compiler
