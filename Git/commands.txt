@@ -10,6 +10,11 @@
     git pull --prune
     git branch --merged ` | Select-String -NotMatch -Pattern "(\*|main|master|staging)" ` | %{ git branch -d $_.ToString().Trim() }
 
+
+■ ソースコード追跡を保持したまま、フォルダを移動
+
+    git mv [移動前フォルダパス]/ [移動後フォルダパス]/
+
 ■ リベースの実行
 
     git checkout [ target-branch ]
