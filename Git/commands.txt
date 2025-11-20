@@ -11,6 +11,10 @@
     git branch --merged ` | Select-String -NotMatch -Pattern "(\*|main|master|staging)" ` | %{ git branch -d $_.ToString().Trim() }
 
 
+■ ソースコード追跡を保持したまま、ファイル名を変更
+
+    git mv [現在のファイル名] [新しいファイル名]
+
 ■ ソースコード追跡を保持したまま、フォルダを移動
 
     git mv [移動前フォルダパス]/ [移動後フォルダパス]/

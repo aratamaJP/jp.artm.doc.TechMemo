@@ -1,0 +1,27 @@
+FormatType
+
+DateTimeUtility.FormatType.EndOfYearMonth1Letter
+
+2025年11月30日
+DateTimeUtility.FormatType.LongDate1Letter
+
+DateTimeUtility.FormatType.LongDate1LetterNoneServerTime
+
+2025年11月30日 0時0分
+DateTimeUtility.FormatType.LongDateHourMinute1Letter
+
+2025年11月30日 00時00分
+DateTimeUtility.FormatType.LongDateHourMinuteNoneServerTime
+
+2025年11月30日(日)
+DateTimeUtility.FormatType.LongDateWeekOfDay1Letter
+
+
+2025/11/30
+DateTimeUtility.FormatType.ShortDate2Letter
+
+DateTimeUtility.FormatType.ShortDateHourMinuteSecond2Letter
+
+DateTimeUtility.FormatType.ShortDateWeekOfDay1Letter
+
+DateTimeUtility.FormatType.ShortDate2Letter
